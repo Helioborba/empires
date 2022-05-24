@@ -1,0 +1,51 @@
+version: "3"
+services:
+    client:
+        stdin_open: true
+        command: npm run start
+        environment:
+            - NODE_ENV=development
+            - CHOKIDAR_USEPOLLING=true
+        build:
+            context: "./app"
+            dockerfile: Dockerfile.dev
+        restart: on-failure
+        volumes:
+            - /app/node_modules
+            - 'D:/workshop/empires/app:/app'
+    api:
+        stdin_open: true
+        environment:
+            - NODE_ENV=development
+            - CHOKIDAR_USEPOLLING=true
+        build: 
+            context: "./api"
+            dockerfile: Dockerfile.dev
+        restart: on-failure
+        volumes: 
+            - /api/node_modules
+            - 'D:/workshop/empires/api:/api'
+    nginx:
+        restart: always
+        build: 
+            context: ./nginx
+            dockerfile: Dockerfile.dev
+        ports:
+            - "5000:80"
+        depends_on: 
+            - client
+            - api
+    
+    mysql_db:
+        build:
+            context: "./mysql/"
+            dockerfile: Dockerfile
+        ports:
+            - 3306:3306
+        volumes:
+            - ./mysql/Dump20220503.sql:/docker-entrypoint-initdb.d/Dump20220503.sql
+    # adminer:
+    #     image: adminer
+    #     restart: always
+    #     ports:
+    #     - 1000:8080

@@ -1,0 +1,4 @@
+/backup
+/env
+/app/node_modules
+.env
