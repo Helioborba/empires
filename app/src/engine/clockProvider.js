@@ -2,7 +2,7 @@
 import React, {useState,useEffect} from 'react';
 import clock from './clock';
 /**
- * Context carregando a comunicacao com a API.
+ * Context for clock.
  * 
  */
 const ClockContext = React.createContext({
@@ -16,7 +16,6 @@ export const ClockContextProvider = (props) => {
         const identifier = setTimeout( () => {
             clock(clockCurrent).then( (value) => {
                 ClockCurrentHandler(value);
-                console.log(clockCurrent);
             })
         return () => {
           clearTimeout(identifier);

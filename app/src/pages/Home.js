@@ -1,9 +1,10 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import {Box, Typography, Grid, Button} from "@mui/material";
 import { styled,alpha } from '@mui/material/styles';
 import Nav from "../components/UI/nav/nav.js";
 import ClockContext from "../engine/clockProvider.js";
-
+import NationsContext from "../engine/nationsProvider.js";
+import { City } from '../engine/objects.js'
 
 const Canvas = styled(Box)(
     ({ theme }) => ({
@@ -18,6 +19,16 @@ const Canvas = styled(Box)(
 
 const Home = (props) => {
     const ctxClock = useContext(ClockContext);
+    const ctxNations = useContext(NationsContext);
+
+    function city() {
+        const city = new City();
+        city.createArmy();
+        console.log(city.army.report());
+        ctxNations.nationsCurrentHandler([...ctxNations.nationsProvider,city]); // push the new city
+        console.log(ctxNations.nationsProvider)
+    }
+    
     const componenteDados = () => { 
         // In case its still empty
         if (!ctxClock.clockProvider) {
@@ -36,7 +47,8 @@ const Home = (props) => {
                 <Typography>{`Year: ${ctxClock.clockProvider.year}`}</Typography> 
             </Box>
         )
-    };
+    }
+
     return(
         <Box sx={{width:"100vw", minHeight:"100vh", backgroundColor:"#555"}}>
             <Nav></Nav>
@@ -64,7 +76,7 @@ const Home = (props) => {
                         </Grid>
                         <Grid item display='flex' flexDirection='column'> 
                             <Typography variant="span">Vai ter algo aqui ainda</Typography>
-                            <Button>Add</Button>
+                            <Button onClick={city}>Add</Button>
                         </Grid>
                         <Grid item display='flex' flexDirection='column'>
                             <Typography variant="span">Vai ter algo aqui ainda</Typography>
