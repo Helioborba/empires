@@ -1,5 +1,5 @@
 // Months of the year and their respective dates
-const months = [ { index: 0, monthName:'january', days: 31 },{ index: 1, monthName:'february', days : 28 },{ index: 2, monthName:"march", days : 31 },{ index: 3, monthName:"april", days : 30 },{ index: 4, monthName: "may", days : 31 },{ index: 5, monthName:"june", days : 30 },{ index: 6, monthName:'july', days : 31 },{ index: 7, monthName:'august', days : 31 },{ index: 8,monthName:'september', days : 30 },{ index: 9, monthName:'october', days : 31 },{ index: 10, monthName:'november', days : 30 }, { index: 11, monthName:'december', days : 31 }]
+const months = [ { index: 0, monthName:'January', days: 31 },{ index: 1, monthName:'February', days : 28 },{ index: 2, monthName:"March", days : 31 },{ index: 3, monthName:"April", days : 30 },{ index: 4, monthName: "May", days : 31 },{ index: 5, monthName:"June", days : 30 },{ index: 6, monthName:'July', days : 31 },{ index: 7, monthName:'August', days : 31 },{ index: 8,monthName:'September', days : 30 },{ index: 9, monthName:'October', days : 31 },{ index: 10, monthName:'November', days : 30 }, { index: 11, monthName:'December', days : 31 }]
     
 /**
  *  Sleep function used for the clock mainly
@@ -22,7 +22,7 @@ async function clock(current) {
         return {index:0, monthName:months[0].monthName, day:0, year:1300 }
     }
 
-    await sleep(500);
+    await sleep(4000);
     const newCurrent = {index:0, monthName:'', day:0, year: 0} // new current obj
     // const currentMonth = last.index;
     // Verify each month to find current by using the index of the months
@@ -34,7 +34,7 @@ async function clock(current) {
             newCurrent.monthName = current.monthName;
             newCurrent.year = current.year;
             if (current.day >= month.days) {
-                if (current.monthName === month[11]) { // In case its december, rerun back index/month/day and add a year
+                if (current.monthName === months[11].monthName) { // In case its december, rerun back index/month/day and add a year
                     newCurrent.day = 0;
                     newCurrent.index = months[0].index;
                     newCurrent.monthName = months[0].monthName;
