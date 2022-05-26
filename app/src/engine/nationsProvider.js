@@ -12,13 +12,14 @@ const NationsContext = React.createContext({
 export const NationsContextProvider = (props) => {
     const [nationsCurrent,nationsCurrentHandler] = useState([]);
 
-    useEffect( () => {
-        const identifier = setTimeout( () => {
-        return () => {
-          clearTimeout(identifier);
-        };
-      })
-    },[nationsCurrent])
+    // useEffect( () => {
+    //     const identifier = setTimeout( () => {
+    //     return () => {
+    //       clearTimeout(identifier);
+    //     };
+    //   })
+    // },[nationsCurrent])
+    
     return(
         <NationsContext.Provider value={{
             nationsProvider: nationsCurrent,
