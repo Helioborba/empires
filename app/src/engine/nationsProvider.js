@@ -1,29 +1,24 @@
 
-import React, {useState,useEffect} from 'react';
+import React, {useState} from 'react';
 /**
  * Context for the nation.
+ * Carries also the nodes of the canvas
  * 
  */
 const NationsContext = React.createContext({
     nationsProvider: [],
-    nationsCurrentHandler: () => {}
+    nationsCurrentHandler: () => {},
+    canvasNodes: []
 });
 
 export const NationsContextProvider = (props) => {
     const [nationsCurrent,nationsCurrentHandler] = useState([]);
 
-    // useEffect( () => {
-    //     const identifier = setTimeout( () => {
-    //     return () => {
-    //       clearTimeout(identifier);
-    //     };
-    //   })
-    // },[nationsCurrent])
-    
     return(
         <NationsContext.Provider value={{
             nationsProvider: nationsCurrent,
-            nationsCurrentHandler: nationsCurrentHandler
+            nationsCurrentHandler: nationsCurrentHandler,
+            canvasNodes:[]
         }}>
         {props.children}
         </NationsContext.Provider>

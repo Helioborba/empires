@@ -1,20 +1,20 @@
 import { useContext, useEffect, useRef } from "react";
 import {Box, Typography, Grid, Button} from "@mui/material";
-import { styled,alpha } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import Nav from "../components/UI/nav/nav.js";
 import ClockContext from "../engine/clockProvider.js";
 import NationsContext from "../engine/nationsProvider.js";
 import { City } from '../engine/objects.js'
 import { FormControl, TextField } from "@mui/material";
 import {draw} from '../engine/canvas.js';
-
-const Canvas = styled(Box)(
-    ({ theme }) => ({
-    backgroundColor:'#fff',
-    display:'flex',
-    alignItems:'center',
-    justifyContent:'center'
-}));
+import Canvas from "../components/Canvas/canvas.js";
+// const Canvas = styled(Box)(
+//     ({ theme }) => ({
+//     backgroundColor:'#fff',
+//     display:'flex',
+//     alignItems:'center',
+//     justifyContent:'center'
+// }));
 
 const Home = (props) => {
     const ctxClock = useContext(ClockContext);
@@ -23,6 +23,8 @@ const Home = (props) => {
     const cityRef = useRef();
     const canvasRef = useRef();
 
+
+    // get the data from input of city
     function submitCity(event) {
         event.preventDefault();
         const city = new City(cityRef.current.value);
@@ -31,9 +33,11 @@ const Home = (props) => {
         cityRef.current.value = '';
     }
     
+    // used for the canvas draw
     useEffect( () => {
         const identifier = setTimeout( () => {
-            draw(canvasRef);
+            // Its probably not a good idea to perform such a memory heavy operation here inside this use effect to get the nodes
+            ctxNations.canvasNodes = draw(canvasRef);
         return () => {
           clearTimeout(identifier);
         };
@@ -59,7 +63,7 @@ const Home = (props) => {
             </Box>
         )
     }
-
+    //mt2
     return(
         <Box sx={{width:"100vw", minHeight:"100vh", backgroundColor:"#555"}}>
             <Nav></Nav>
@@ -77,7 +81,9 @@ const Home = (props) => {
                     </Grid>
                     <Grid container direction="column" item xs={10} sx={{p:{xs:"1rem 0 1rem 1rem", lg:2, overflow:"scroll"}}}>
                         <Grid item>
-                            <Canvas component="canvas" mt={2} ref={canvasRef}></Canvas>
+                            <Box>
+                                <Canvas height={1000} width={1000} ref={canvasRef}></Canvas>
+                            </Box>
                         </Grid>
                     </Grid>
                     <Grid container direction="column" item xs={2} justifyContent="space-around" sx={{p:{xs:2, lg:2}}}>
@@ -87,7 +93,6 @@ const Home = (props) => {
                         </Grid>
                         <Grid item display='flex' flexDirection='column'> 
                             <Typography variant="span">Nations Control</Typography>
-                        {/* <Form component="form" onSubmit={submitCity}> */}
                             <FormControl sx={{pt:5}} component="form" onSubmit={submitCity}>
                                 {/* <MyFormHelperText /> */}
                                 <TextField
@@ -98,10 +103,14 @@ const Home = (props) => {
                                     InputLabelProps={{
                                         sx: { color: '#fff'}
                                     }}
+                                    sx={{
+                                        '& fieldset': {
+                                            borderColor: 'white'
+                                        }
+                                    }}
                                 />
                                 <Button sx={{mt:2}} type="submit">Add</Button>
                             </FormControl>
-                        {/* </Form> */}
                         </Grid>
                         <Grid item display='flex' flexDirection='column'>
                             <Typography variant="span">Vai ter algo aqui ainda</Typography>

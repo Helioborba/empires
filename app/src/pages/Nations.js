@@ -5,6 +5,7 @@ import NationsContext from "../engine/nationsProvider.js";
 
 const Nations = (props) => {
     const ctxNations = useContext(NationsContext);
+    console.log(ctxNations.canvasNodes)
     function render() {
         return (ctxNations.nationsProvider.map((city,index) => {
             return (

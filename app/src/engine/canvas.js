@@ -1,14 +1,17 @@
 import {marchPath} from '../paths/all.js';
-
+import Node from './node.js';
+/***
+ * Function used to draw canvas or other items such as a grid, marches or cities
+ */
 export function draw(canvasRef) {
-    console.log(canvasRef)
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
-    let w = 2000;
-    let h = 2000;
-    ctx.canvas.width = w;
-    ctx.canvas.height = h;
+
+    let w = ctx.canvas.width;
+    let h = ctx.canvas.height;
     
+    const nodes = [];
+    let index = 0;
     for (let x = 0; x <= w; x += 50) {
         ctx.fillStyle = '#000000';
 
@@ -23,11 +26,16 @@ export function draw(canvasRef) {
             ctx.lineTo(x, y);
             ctx.save();
 
+            nodes.push(new Node(index, x, y, 50));
+            index += 1;
+
             // draw marches, cities, etc
             // ctx.font = '10px serif';
             // ctx.strokeStyle = "#f00"; 
             // ctx.translate(x + 25, y + 25);
             // ctx.stroke(marchPath());
         }
+        
     }
+    return nodes
 }
