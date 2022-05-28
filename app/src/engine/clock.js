@@ -22,7 +22,7 @@ async function clock(current) {
         return {index:0, monthName:months[0].monthName, day:0, year:1300 }
     }
 
-    await sleep(4000);
+    await sleep(15000);
     const newCurrent = {index:0, monthName:'', day:0, year: 0} // new current obj
     // const currentMonth = last.index;
     // Verify each month to find current by using the index of the months

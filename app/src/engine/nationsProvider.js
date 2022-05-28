@@ -13,12 +13,14 @@ const NationsContext = React.createContext({
 
 export const NationsContextProvider = (props) => {
     const [nationsCurrent,nationsCurrentHandler] = useState([]);
+    const [canvasNodes,canvasNodesCurrentHandler] = useState([]);
 
     return(
         <NationsContext.Provider value={{
             nationsProvider: nationsCurrent,
             nationsCurrentHandler: nationsCurrentHandler,
-            canvasNodes:[]
+            canvasNodes: canvasNodes,
+            canvasNodesCurrentHandler: canvasNodesCurrentHandler
         }}>
         {props.children}
         </NationsContext.Provider>

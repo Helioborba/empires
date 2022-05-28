@@ -4,7 +4,7 @@ export class City {
         this.name = name;
         this.population = {total:3000, military:Math.floor(Math.random() * 301)};
         this.buildings = {total:200, house:100, windmill:20, market:10, church:10, aquedut:10, barracks:50};
-        this.army = null;
+        this.army = null; // array later
     }    
 
     createArmy() {
@@ -14,7 +14,7 @@ export class City {
             const soldier = new Soldier(index);
             army.conscript(soldier);
         }
-        this.army = army;
+        this.army = army; // .push later, transform army into a array
     }
 }
 
@@ -50,6 +50,7 @@ class CatalogWeapons {
 class Army {
     constructor() {
         this.soldiers = [];
+        this.stopped = true;
     }
 
     conscript(soldier) {
