@@ -7,8 +7,8 @@ const Nations = (props) => {
     const ctxNations = useContext(NationsContext);
 
     for (const node of ctxNations.canvasNodes) {
-        if (node.empty !== true) {
-            console.log('yes');
+        if (node.city) {
+            console.log(node.city);
         }
     }
     
@@ -21,6 +21,7 @@ const Nations = (props) => {
             )
         }))
     }
+
     return(
         <Box sx={{width:"100vw", minHeight:"100vh", backgroundColor:"#555"}}>
             <Nav></Nav>

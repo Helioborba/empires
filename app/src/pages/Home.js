@@ -12,7 +12,6 @@ import { drawOn } from "../engine/drawOn.js";
 
 // What needs to be done: checar nodes adjacentes para ver se tem valor (25 antes e 25 depois, e setar eles como ocupados) 
 // adicionar main root? e tmb colocar o objeto inteiro da cidade que ele contem
-
 // const Canvas = styled(Box)(
 //     ({ theme }) => ({
 //     backgroundColor:'#fff',
@@ -36,14 +35,15 @@ const Home = (props) => {
         city.createArmy();
         ctxNations.nationsCurrentHandler([...ctxNations.nationsProvider,city]); // push the new city
         cityRef.current.value = '';
-        drawOn(ctxNations.canvasNodes,canvasRef);
+        drawOn(ctxNations.canvasNodes,canvasRef,city);
     }
     
     // used for the canvas draw
     useEffect( () => {
         const identifier = setTimeout( () => {
             // Its probably not a good idea to perform such a memory heavy operation here inside this use effect to get the nodes
-            ctxNations.canvasNodesCurrentHandler(draw(canvasRef))
+            ctxNations.canvasNodesCurrentHandler(draw(canvasRef,ctxNations.canvasNodes))
+
              // draw canvas and create the nodes
         return () => {
           clearTimeout(identifier);
