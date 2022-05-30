@@ -15,26 +15,141 @@ export function drawOn(nodes=null, canvasRef=null, city) {
 
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
+    let report = 0;
 
     // verify the node that will be overwritten
     for (const node of nodes) {
-        if (node.posx === (Math.ceil(x / 50) * 50) && node.posy === (Math.ceil(y / 50) * 50)) { 
-            // updates the node
-            node.empty = false;
-            node.city = city;
-            node.type = 'city';
+        if (node.empty === true) {
+            // if (node.posx + 50 === (Math.ceil(x / 50) * 50) && node.empty === true) {
+            //     node.empty = false;
+            //     node.city = city;
+            //     node.type = 'outskirt';
+            //     console.log('hey plus')
+            // }
 
-            // draws the city
-            ctx.save();
+            // if (node.posy + 50 === (Math.ceil(y / 50) * 50) && node.empty === true) {
+            //     node.empty = false;
+            //     node.city = city;
+            //     node.type = 'outskirt';
+            //     console.log('hey plus')
+            // }
+          
+            // O problema é o math ceil cuidado
+            // adj tiles
+            if (node.posx === (Math.ceil(x + 50  / 50) * 50) && node.posy === (Math.ceil(y / 50) * 50) && node.empty === true) {
+                node.empty = false;
+                node.city = city;
+                node.type = 'outskirt';
+                console.log('hey plus')
+            }
 
-            ctx.strokeStyle = "#000"; 
-            ctx.moveTo(x, y);
-            ctx.font = '10px serif';
-            ctx.strokeStyle = "#000"; 
-            ctx.translate(x + 25, y + 25);
-            ctx.stroke(cityPathTyranny());
+            if (node.posx === (Math.ceil(x / 50) * 50) && node.posy === (Math.ceil(y + 50 / 50) * 50) && node.empty === true) {
+                node.empty = false;
+                node.city = city;
+                node.type = 'outskirt';
+                console.log('hey plus')
+            }
+
+            if (node.posx === (Math.ceil(x - 50  / 50) * 50) && node.posy === (Math.ceil(y / 50) * 50) && node.empty === true) {
+                node.empty = false;
+                node.city = city;
+                node.type = 'outskirt';
+                console.log('hey plus')
+            }
+
+            if (node.posx === (Math.ceil(x / 50) * 50) && node.posy === (Math.ceil(y - 50 / 50) * 50) && node.empty === true) {
+                node.empty = false;
+                node.city = city;
+                node.type = 'outskirt';
+                console.log('hey plus')
+            }
+
+            // extra
+            if (node.posx === (Math.ceil(x + 100  / 50) * 50) && node.posy === (Math.ceil(y / 50) * 50) && node.empty === true) {
+                node.empty = false;
+                node.city = city;
+                node.type = 'outskirt';
+                console.log('hey plus')
+            }
+
+            if (node.posx === (Math.ceil(x / 50) * 50) && node.posy === (Math.ceil(y + 100 / 50) * 50) && node.empty === true) {
+                node.empty = false;
+                node.city = city;
+                node.type = 'outskirt';
+                console.log('hey plus')
+            }
+
+            if (node.posx === (Math.ceil(x - 100  / 50) * 50) && node.posy === (Math.ceil(y / 50) * 50) && node.empty === true) {
+                node.empty = false;
+                node.city = city;
+                node.type = 'outskirt';
+                console.log('hey plus')
+            }
+
+            if (node.posx === (Math.ceil(x / 50) * 50) && node.posy === (Math.ceil(y - 100 / 50) * 50) && node.empty === true) {
+                node.empty = false;
+                node.city = city;
+                node.type = 'outskirt';
+                console.log('hey plus')
+            }
+
+            // vertical tiles
+            if (node.posx === (Math.ceil(x + 50  / 50) * 50) && node.posy === (Math.ceil(y + 50 / 50) * 50) && node.empty === true) {
+                node.empty = false;
+                node.city = city;
+                node.type = 'outskirt';
+                console.log('hey plus')
+            }
+    
+            if (node.posx - 50 === (Math.ceil(x / 50) * 50) && node.posy - 50 === (Math.ceil(y / 50) * 50) && node.empty === true) {
+                node.empty = false;
+                node.city = city;
+                node.type = 'outskirt';
+                console.log('hey minus');
+            } 
+
+            // vertical tiles extra
+            if (node.posx === (Math.ceil(x + 100  / 50) * 50) && node.posy === (Math.ceil(y + 100 / 50) * 50) && node.empty === true) {
+                node.empty = false;
+                node.city = city;
+                node.type = 'outskirt';
+                console.log('hey plus')
+            }
+    
+            if (node.posx - 100 === (Math.ceil(x / 50) * 50) && node.posy - 100 === (Math.ceil(y / 50) * 50) && node.empty === true) {
+                node.empty = false;
+                node.city = city;
+                node.type = 'outskirt';
+                console.log('hey minus');
+            } 
             
-            ctx.restore();
+            
+            // main tiles
+            if (node.posx === (Math.ceil(x / 50) * 50) && node.posy === (Math.ceil(y / 50) * 50) && node.empty === true) { 
+                // updates the node
+                node.empty = false;
+                node.city = city;
+                node.type = 'city';
+                let f = Math.ceil(x / 50) * 50;
+                let d = Math.ceil(y / 50) * 50
+                // draws the city
+                ctx.save();
+    
+                ctx.strokeStyle = "#000"; 
+                ctx.moveTo(f, d);
+                ctx.font = '10px serif';
+                ctx.strokeStyle = "#000"; 
+                ctx.translate(f + 25, d + 25);
+                ctx.stroke(cityPathTyranny());
+                
+                ctx.restore();
+            } 
+        } else {
+            report += 1;
         }
+    }
+    console.log(report)
+    if (report === nodes.length) {
+        console.log("full");
     }
 }
