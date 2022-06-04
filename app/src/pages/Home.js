@@ -31,11 +31,13 @@ const Home = (props) => {
     // get the data from input of city
     function submitCity(event) {
         event.preventDefault();
-        const city = new City(cityRef.current.value);
-        city.createArmy();
-        ctxNations.nationsCurrentHandler([...ctxNations.nationsProvider,city]); // push the new city
-        cityRef.current.value = '';
-        drawOn(ctxNations.canvasNodes,canvasRef,city);
+        //for (const x of [...Array(100).keys()]) {
+            const city = new City(cityRef.current.value);
+            city.createArmy();
+            ctxNations.nationsCurrentHandler([...ctxNations.nationsProvider,city]); // push the new city
+            cityRef.current.value = '';
+            drawOn(ctxNations.canvasNodes,canvasRef,city);
+        //}
     }
     
     // used for the canvas draw
