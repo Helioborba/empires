@@ -53,3 +53,20 @@ export function draw(canvasRef,cityNodes=[]) {
     }
     return nodes;
 }
+
+export function drawLine(canvasRef) {
+    if (canvasRef?.current) {
+        console.log("hey");
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext('2d');
+    
+        // draw grid
+        ctx.restore();
+        ctx.strokeStyle = "#000"; 
+        ctx.moveTo(0, 0);
+        ctx.lineTo(0, 0);
+        ctx.stroke();
+        ctx.save();
+    }
+   
+}

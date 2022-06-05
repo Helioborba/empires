@@ -23,6 +23,7 @@ import { drawOn } from "../engine/drawOn.js";
 const Home = (props) => {
     const ctxClock = useContext(ClockContext);
     const ctxNations = useContext(NationsContext);
+    const ctxCanvas = useContext(NationsContext);
 
     const cityRef = useRef();
     const canvasRef = useRef();

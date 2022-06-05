@@ -7,7 +7,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { ClockContextProvider } from './engine/clockProvider'
 import { NationsContextProvider } from './engine/nationsProvider.js';
 import { blue } from '@mui/material/colors';
-// import Engine from './engine/engine';
+import Engine from './engine/engine';
 
 // testing themes
 const theme = createTheme({
@@ -42,7 +42,7 @@ const App = () => {
         <ClockContextProvider>
           <NationsContextProvider>
             <div className={style.App}>
-              {/* <Engine></Engine> */}
+              <Engine></Engine>
               <Router></Router> 
             </div>
           </NationsContextProvider>
