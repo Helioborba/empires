@@ -4,9 +4,12 @@ import Router from './components/Router/Router';
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/material/styles';
+// need to pick all those providers and merge them into a single import provider
 import { ClockContextProvider } from './engine/clockProvider'
+import { CanvasContextProvider } from './context/canvas';
+import { NationsContextProvider } from './engine/nationsProvider.js';
 import { blue } from '@mui/material/colors';
-// import Engine from './engine/engine';
+import Engine from './engine/engine';
 
 // testing themes
 const theme = createTheme({
@@ -31,39 +34,23 @@ const theme = createTheme({
       tertiary: "#333333",
       extra:"#000000"
     }
-  },
-  typography: {
-    body2:  {
-      
-    }
-  },
+  }
 });
 
-// Home is the root url (/)
-
 const App = () => {
-  // const [clockCurrent,ClockCurrentHandler] = useState(undefined);
-
-  // useEffect( () => {
-  //     const identifier = setTimeout( () => {
-  //       clock(clockCurrent).then( (value) => {
-  //         ClockCurrentHandler(value);
-  //         console.log(clockCurrent);
-  //       })
-  //     return () => {
-  //       clearTimeout(identifier);
-  //     };
-  //   })
-  // })
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline/>
+      <CanvasContextProvider>
         <ClockContextProvider>
-          <div className={style.App}>
-            {/* <Engine></Engine> */}
-            <Router></Router> 
-          </div>
+          <NationsContextProvider>
+            <div className={style.App}>
+              <Engine></Engine>
+              <Router></Router> 
+            </div>
+          </NationsContextProvider>
         </ClockContextProvider>
+      </CanvasContextProvider>
     </ThemeProvider>
   );
 }
