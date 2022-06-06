@@ -9,7 +9,7 @@ class NodeCoords {
         this.posy = posy;
         this.size = size;
         this.empty = true;
-        this.type = type; // is the node a city? or a node?
+        this.type = type; // is the node a city? or a node? or a outskirt?
         this.city = city; // city object
     }
 }

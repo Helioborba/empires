@@ -13,13 +13,22 @@ const Nations = (props) => {
     }
     
     function render() {
-        return (ctxNations.nationsProvider.map((city,index) => {
-            return (
-                <Grid container item flexDirection='row' justifyContent='space-around' alignItems='center'  key={index} sx={{p:2,mt:2,borderRadius:4, backgroundColor:"#000"}}>
-                    <Grid item>City: {city.name}</Grid><Grid item> Population: {city.population.total}</Grid><Grid item> Buildings: {city.buildings.total}</Grid><Grid item> Army: {city.army.report()}</Grid>
-                </Grid> 
-            )
-        }))
+        if (ctxNations.nationsProvider[0] != null) {
+            return (ctxNations.nationsProvider.map((city,index) => {
+                return (
+                    <Grid container item flexDirection='row' justifyContent='space-around' alignItems='center'  key={index} sx={{p:2,mt:2,borderRadius:4, backgroundColor:"#000"}}>
+                        <Grid item>City: {city.name}</Grid><Grid item> Population: {city.population.total}</Grid><Grid item> Buildings: {city.buildings.total}</Grid><Grid item> Army: {city.army.report()}</Grid>
+                    </Grid> 
+                )
+            }))
+        }
+        return (
+            <Grid container item flexDirection='row' justifyContent='space-around' alignItems='center'  key={0} sx={{p:2,mt:2,borderRadius:4, backgroundColor:"#000"}}>
+                <Grid item>No nation yet.</Grid>
+            </Grid> 
+        )
+        
+
     }
 
     return(

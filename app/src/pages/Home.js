@@ -9,9 +9,18 @@ import { FormControl, TextField } from "@mui/material";
 import {draw} from '../engine/canvas.js';
 import Canvas from "../components/Canvas/canvas.js";
 import { drawOn } from "../engine/drawOn.js";
+import CanvasContext from '../context/canvas.js';
+import { drawLine } from "../engine/canvas.js";
+// What needs to be done: 
+// Finish the random path in canvas context for the march
+// Create a state for checking if a city is currently engaded in marching
+// Create another tab for checking the logs of actions being takes by the AI
+// Create alert for each city in battle (or a marching tab with the alert as well)
+// Fix the small offset happening when the march line is drawn
+// Add the marching banner along the march line
+// Marching banner will follow the clock time, just like most of the process in the simulator
+// Need to add drawOn after changing tab, for now it will center the cities along the canvas grid
 
-// What needs to be done: checar nodes adjacentes para ver se tem valor (25 antes e 25 depois, e setar eles como ocupados) 
-// adicionar main root? e tmb colocar o objeto inteiro da cidade que ele contem
 // const Canvas = styled(Box)(
 //     ({ theme }) => ({
 //     backgroundColor:'#fff',
@@ -23,11 +32,11 @@ import { drawOn } from "../engine/drawOn.js";
 const Home = (props) => {
     const ctxClock = useContext(ClockContext);
     const ctxNations = useContext(NationsContext);
-    const ctxCanvas = useContext(NationsContext);
+    const ctxCanvas = useContext(CanvasContext);
 
     const cityRef = useRef();
     const canvasRef = useRef();
-
+    ctxCanvas.canvasProvider = canvasRef;
     
     // get the data from input of city
     function submitCity(event) {
@@ -37,23 +46,35 @@ const Home = (props) => {
             city.createArmy();
             ctxNations.nationsCurrentHandler([...ctxNations.nationsProvider,city]); // push the new city
             cityRef.current.value = '';
-            drawOn(ctxNations.canvasNodes,canvasRef,city);
+            drawOn(ctxNations.canvasNodes, canvasRef, city);
         //}
     }
     
-    // used for the canvas draw
+    // used for the canvas draw and for each time the page goes to another one
+    // Careful here, the marches are also drawn.
     useEffect( () => {
         const identifier = setTimeout( () => {
             // Its probably not a good idea to perform such a memory heavy operation here inside this use effect to get the nodes
             ctxNations.canvasNodesCurrentHandler(draw(canvasRef,ctxNations.canvasNodes))
-
-             // draw canvas and create the nodes
+            drawLine(canvasRef,ctxCanvas.currentAtMarch);
+            //drawLine(ctxCanvas.canvasProvider);
+            // draw canvas and create the nodes
         return () => {
-          clearTimeout(identifier);
+            clearTimeout(identifier);
         };
       })
     },[])
    
+    // used for keeping track of the movements, based on the clock
+    useEffect( () => {
+        const identifier = setTimeout( () => {
+            drawLine(canvasRef,ctxCanvas.currentAtMarch);
+        return () => {
+            clearTimeout(identifier);
+        };
+      })
+    },[ctxClock.clockProvider])
+
     const componenteDados = () => { 
         // In case its still empty
         if (!ctxClock.clockProvider) {

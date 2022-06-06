@@ -4,7 +4,6 @@ import React, {useState} from 'react';
  * Context for the nation.
  * Carries also the nodes of the canvas
  * Nations provider holds the citys array (all cities)
- * 
  */
 const NationsContext = React.createContext({
     nationsProvider: [],

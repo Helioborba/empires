@@ -5,7 +5,7 @@ export class City {
         this.population = {total:3000, military:Math.floor(Math.random() * 301)};
         this.buildings = {total:200, house:100, windmill:20, market:10, church:10, aquedut:10, barracks:50};
         this.army = null; // array later
-    }    
+    }
 
     createArmy() {
         // criar as squads
